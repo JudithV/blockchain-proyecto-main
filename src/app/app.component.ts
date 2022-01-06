@@ -19,7 +19,7 @@ export class AppComponent {
   encuestas: Encuesta[] = [{
     id: 1,
     pregunta: "¿Cuál es tu mascota favorita?",
-    resultados: [0, 4, 3, 2],
+    resultados: [4, 4, 3, 2],
     opciones: ["Gatos", "Perros", "Hámsters", "Peces"],
     votada: true
   },

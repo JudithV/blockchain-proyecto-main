@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ApexCharts from 'apexcharts';
 
@@ -7,7 +7,7 @@ import ApexCharts from 'apexcharts';
   templateUrl: './encuesta-votar.component.html',
   styleUrls: ['./encuesta-votar.component.css']
 })
-export class EncuestaVotarComponent implements OnInit {
+export class EncuestaVotarComponent implements AfterViewInit {
   @Input() votado: boolean;
   @Input() opciones: string[];
   @Input() resultados: number[];
@@ -26,7 +26,7 @@ export class EncuestaVotarComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     if(this.votado){
       this.generarGrafica();
     }

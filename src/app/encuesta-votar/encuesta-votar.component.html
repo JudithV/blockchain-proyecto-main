@@ -9,4 +9,4 @@
   <button type="submit" class="btn btn-secondary mt-3" [disabled]="!votarForm.valid">Enviar voto</button>
 </form>
 
-<div *ngIf="votado" id="resultados-encuesta"></div>
+<div *ngIf="votado" id="resultados-encuesta" ref="barchart"></div>

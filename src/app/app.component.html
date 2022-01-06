@@ -17,9 +17,9 @@
   <div class="container detalles-encuesta">
     <app-encuesta-votar
     *ngIf="encuestaActiva"
-    [votado]="encuestaActiva.votada"
     [pregunta]="encuestaActiva.pregunta"
     [resultados]="encuestaActiva.resultados"
-    [opciones]="encuestaActiva.opciones"></app-encuesta-votar>
+    [opciones]="encuestaActiva.opciones"
+    [votado]="encuestaActiva.votada"></app-encuesta-votar>
   </div>
 </div>

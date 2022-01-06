@@ -1,1 +1,11 @@
-<p>encuesta works!</p>
+<div class="card mg-4">
+  <div class="card-body">
+    <p class="card-text text-truncate font-weight-bold">
+      {{ pregunta }}
+    </p>
+    <div class="d-flex justify-content-between">
+      <small class="text-muted">{{ numeroDeVotos }}</small>
+      <small *ngIf="votada" class="badge bg-success">Votada</small>
+    </div>
+  </div>
+</div>

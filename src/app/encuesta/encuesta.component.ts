@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-encuesta',
@@ -6,10 +6,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./encuesta.component.css']
 })
 export class EncuestaComponent implements OnInit {
+  @Input() pregunta: string;
+  @Input()
+  resultados: number[];
+  @Input()
+  votada: boolean;
 
-  constructor() { }
+  numeroDeVotos: number;
+
+  constructor() {
+    this.pregunta = "";
+    this.resultados = [];
+    this.votada = false;
+    this.numeroDeVotos = 0;
+   }
 
   ngOnInit(): void {
+    if(this.resultados.length){
+      this.numeroDeVotos = this.resultados.reduce((acu, actu) => {
+        return acu += actu;
+      });
+    }else{
+      this.numeroDeVotos = 0;
+    }
   }
 
 }

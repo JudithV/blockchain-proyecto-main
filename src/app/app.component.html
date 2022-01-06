@@ -10,7 +10,8 @@
 <app-crear-encuesta *ngIf="mostrarForm"></app-crear-encuesta>
 <div class="d-flex">
   <div class="container lista-encuestas">
-    <app-encuesta [pregunta]="encuesta.pregunta" [resultados]="encuesta.resultados" [votada]="encuesta.votada"></app-encuesta>
+    <app-encuesta *ngFor ="let encuesta of encuestas"
+    [pregunta]="encuesta.pregunta" [resultados]="encuesta.resultados" [votada]="encuesta.votada"></app-encuesta>
   </div>
   <div class="container detalles-encuesta">
     Detalles de la encuesta

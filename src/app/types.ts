@@ -3,6 +3,7 @@ export interface Encuesta{
   pregunta:string;
   resultados: number[];
   opciones: string[];
+  votada: boolean
 }
 
 export interface Votante{

@@ -1,0 +1,12 @@
+<h3>{{ pregunta }}</h3>
+
+<form *ngIf="!votado" [formGroup]="votarForm" (ngSubmit)="enviarForm()">
+  <div class="form-check" *ngFor="let opcion of opciones; let i = index">
+    <input type="radio" class="form-check-input" formControlName="elegido" [value]="i">
+    <label class="form-check-label">{{opcion}}</label>
+  </div>
+
+  <button type="submit" class="btn btn-secondary mt-3" [disabled]="!votarForm.valid">Enviar voto</button>
+</form>
+
+<div *ngIf="votado" id="resultados-encuesta"></div>

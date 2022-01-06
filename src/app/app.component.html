@@ -11,9 +11,15 @@
 <div class="d-flex">
   <div class="container lista-encuestas">
     <app-encuesta *ngFor ="let encuesta of encuestas"
-    [pregunta]="encuesta.pregunta" [resultados]="encuesta.resultados" [votada]="encuesta.votada"></app-encuesta>
+    [pregunta]="encuesta.pregunta" [resultados]="encuesta.resultados" [votada]="encuesta.votada"
+    (click)="setEncuestaActiva(encuesta)"></app-encuesta>
   </div>
   <div class="container detalles-encuesta">
-    Detalles de la encuesta
+    <app-encuesta-votar
+    *ngIf="encuestaActiva"
+    [votado]="encuestaActiva.votada"
+    [pregunta]="encuestaActiva.pregunta"
+    [resultados]="encuestaActiva.resultados"
+    [opciones]="encuestaActiva.opciones"></app-encuesta-votar>
   </div>
 </div>

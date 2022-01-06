@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-crear-encuesta',
@@ -6,7 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./crear-encuesta.component.css']
 })
 export class CrearEncuestaComponent {
+  encuestaForm: FormGroup;
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {
+    this.encuestaForm = this.fb.group({
+      pregunta: this.fb.control("", [Validators.required]),
+      opcion1: this.fb.control(""),
+      opcion2: this.fb.control(""),
+      opcion3: this.fb.control(""),
+      opcion4: this.fb.control(""),
+    });
+  }
+
+  submitForm() {
+    console.log(this.encuestaForm.value);
+  }
 
 }

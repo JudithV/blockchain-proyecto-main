@@ -1,13 +1,13 @@
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand mr-auto" href="#">Sistema de encuestas con Blockchain.</a>
-  <button type="button" class="btn btn-secondary">Crear encuesta</button>
+  <button type="button" class="btn btn-secondary" (click)="mostrarForm = !mostrarForm">Crear encuesta</button>
 </nav>
 
 <section class="jumbotron bg-light text-center">
   <h1>Encuestas</h1>
   <p class="lead text-muted">Desarrollado con tecnología Blockchain</p>
 </section>
-<app-crear-encuesta></app-crear-encuesta>
+<app-crear-encuesta *ngIf="mostrarForm"></app-crear-encuesta>
 <div class="d-flex">
   <div class="container lista-encuestas">
     Lista

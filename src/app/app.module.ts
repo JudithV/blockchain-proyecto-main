@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CrearEncuestaComponent } from './crear-encuesta/crear-encuesta.component';
 import { EncuestaComponent } from './encuesta/encuesta.component';
 import { EncuestaVotarComponent } from './encuesta-votar/encuesta-votar.component';
+import { EncuestaService } from './encuesta-service/encuesta.service';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { EncuestaVotarComponent } from './encuesta-votar/encuesta-votar.componen
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [EncuestaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand mr-auto" href="#">Sistema de encuestas con Blockchain.</a>
+  <a class="navbar-brand mr-auto" href="#">Sistema de encuestas con Blockchain</a>
   <button type="button" class="btn btn-secondary" (click)="mostrarForm = !mostrarForm">Crear encuesta</button>
 </nav>
 
@@ -7,19 +7,21 @@
   <h1>Encuestas</h1>
   <p class="lead text-muted">Desarrollado con tecnología Blockchain</p>
 </section>
-<app-crear-encuesta *ngIf="mostrarForm"></app-crear-encuesta>
+<app-crear-encuesta *ngIf="mostrarForm" (encuestaCreada)="handleCrearEncuesta($event)"></app-crear-encuesta>
 <div class="d-flex">
   <div class="container lista-encuestas">
-    <app-encuesta *ngFor ="let encuesta of encuestas"
+    <app-encuesta *ngFor ="let encuesta of encuestas |async"
     [pregunta]="encuesta.pregunta" [resultados]="encuesta.resultados" [votada]="encuesta.votada"
     (click)="setEncuestaActiva(encuesta)"></app-encuesta>
   </div>
   <div class="container detalles-encuesta">
     <app-encuesta-votar
     *ngIf="encuestaActiva"
+    [id]="encuestaActiva.id"
     [pregunta]="encuestaActiva.pregunta"
     [resultados]="encuestaActiva.resultados"
     [opciones]="encuestaActiva.opciones"
-    [votado]="encuestaActiva.votada"></app-encuesta-votar>
+    [votado]="encuestaActiva.votada"
+    (elegido)="handleVotoEncuesta($event)"></app-encuesta-votar>
   </div>
 </div>

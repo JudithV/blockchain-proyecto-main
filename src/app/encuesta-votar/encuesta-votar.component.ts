@@ -1,6 +1,8 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ApexCharts from 'apexcharts';
+import { EncuestaVotar } from '../types';
+
 
 @Component({
   selector: 'app-encuesta-votar',
@@ -12,10 +14,14 @@ export class EncuestaVotarComponent implements AfterViewInit {
   @Input() opciones: string[];
   @Input() resultados: number[];
   @Input() pregunta: string;
+  @Input() id: number;
+
+  @Output() elegido: EventEmitter<EncuestaVotar> = new EventEmitter();
 
   votarForm: FormGroup;
 
   constructor(private fb: FormBuilder) {
+    this.id = 0;
     this.pregunta = "";
     this.votado = false;
     this.opciones = [];
@@ -33,7 +39,12 @@ export class EncuestaVotarComponent implements AfterViewInit {
   }
 
   enviarForm(){
-    console.log(this.votarForm.value);
+    const encuestaVoto: EncuestaVotar = {
+      id: this.id,
+      voto: this.votarForm.get('elegido')!.value
+    };
+
+    this.elegido.emit(encuestaVoto);
   }
 
   generarGrafica() {

@@ -1,9 +1,17 @@
-export interface Encuesta{
+export interface Encuesta extends EncuestaForm{
   id: number;
-  pregunta:string;
   resultados: number[];
-  opciones: string[];
   votada: boolean
+}
+
+export interface EncuestaForm {
+  pregunta:string;
+  opciones: string[];
+}
+
+export interface EncuestaVotar {
+  id: number;
+  voto: number;
 }
 
 export interface Votante{

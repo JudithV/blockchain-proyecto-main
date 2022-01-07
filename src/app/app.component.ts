@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Encuesta } from './types';
+import { EncuestaService } from './encuesta-service/encuesta.service';
+import { Encuesta, EncuestaForm, EncuestaVotar } from './types';
 
 @Component({
   selector: 'app-root',
@@ -16,20 +17,11 @@ export class AppComponent {
     votada: false
   };
 
-  encuestas: Encuesta[] = [{
-    id: 1,
-    pregunta: "¿Cuál es tu mascota favorita?",
-    resultados: [4, 4, 3, 2],
-    opciones: ["Gatos", "Perros", "Hámsters", "Peces"],
-    votada: true
-  },
-  {
-    id: 2,
-    pregunta: "¿Cuál es tu día de la semana favorito?",
-    resultados: [2, 7, 9, 3],
-    opciones: ["Jueves", "Viernes", "Sábado", "Domingo"],
-    votada: false
-  }];
+  encuestas = this.es.getEncuestas();;
+
+  constructor(private es: EncuestaService) {
+
+  }
 
   setEncuestaActiva(encuesta: Encuesta | null){
     this.encuestaActiva = null;
@@ -37,5 +29,12 @@ export class AppComponent {
     setTimeout(()=> {
       this.encuestaActiva = encuesta;
     }, 500);
+  }
+  handleCrearEncuesta(encuesta: EncuestaForm) {
+    this.es.crearEncuesta(encuesta);
+  }
+
+  handleVotoEncuesta(encuesta: EncuestaVotar) {
+    this.es.votar(encuesta);
   }
 }

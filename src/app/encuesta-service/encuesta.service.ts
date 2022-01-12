@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { Web3Service } from '../blockchain/web3.service';
 import { Encuesta, EncuestaForm, EncuestaVotar } from '../types';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { Encuesta, EncuestaForm, EncuestaVotar } from '../types';
 })
 export class EncuestaService {
 
-  constructor() { }
+  constructor(private web3: Web3Service) { }
 
   getEncuestas(): Observable<Encuesta[]> {
     return of([{
@@ -28,10 +29,10 @@ export class EncuestaService {
   }
 
   votar(encuesta: EncuestaVotar) {
-    console.log(encuesta);
+    this.web3.ejecutarTransaccion('votar', encuesta.id, encuesta.voto);
   }
 
   crearEncuesta(encuesta: EncuestaForm) {
-    console.log(encuesta);
+    this.web3.ejecutarTransaccion('crearEncuesta', encuesta.pregunta, encuesta.opciones);
   }
 }

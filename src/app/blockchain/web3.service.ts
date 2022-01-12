@@ -3,7 +3,7 @@ import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
 
 declare var window: any;
-const contratoAbi = require("./contratoAbi");
+const contratoAbi = require("./contratoAbi.json");
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +24,14 @@ export class Web3Service {
     } else{
       console.warn("No se encontró Metamask. Añádalo a su navegador");
     }
+  }
+
+  getCuenta(): Promise<string> {
+    return this.web3.eth.getAccounts().then((accounts) => accounts[0] || " ");
+  }
+
+  async ejecutarTransaccion(nombreFuncion, ...args: any[]): Promise<void> {
+    const cuenta = await this.getCuenta();
+    this.contrato.methods[nombreFuncion](...args).send({ from: cuenta });
   }
 }

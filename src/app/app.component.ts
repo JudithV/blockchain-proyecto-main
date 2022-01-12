@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EncuestaService } from './encuesta-service/encuesta.service';
 import { Encuesta, EncuestaForm, EncuestaVotar } from './types';
 
@@ -17,10 +17,15 @@ export class AppComponent {
     votada: false
   };
 
-  encuestas = this.es.getEncuestas();;
+  encuestas = this.es.getEncuestas();
 
   constructor(private es: EncuestaService) {
 
+  }
+  ngOnInit() {
+    this.es.paraEventos("EncuestaCreada").subscribe(() => {
+      this.encuestas = this.es.getEncuestas();
+    });
   }
 
   setEncuestaActiva(encuesta: Encuesta | null){

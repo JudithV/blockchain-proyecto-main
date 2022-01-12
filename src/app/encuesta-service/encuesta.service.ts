@@ -11,21 +11,37 @@ export class EncuestaService {
 
   constructor(private web3: Web3Service) { }
 
-  getEncuestas(): Observable<Encuesta[]> {
-    return of([{
-      id: 1,
-      pregunta: "¿Cuál es tu mascota favorita?",
-      resultados: [4, 4, 3, 2],
-      opciones: ["Gatos", "Perros", "Hámsters", "Peces"],
-      votada: true
-    },
-    {
-      id: 2,
-      pregunta: "¿Cuál es tu día de la semana favorito?",
-      resultados: [2, 7, 9, 3],
-      opciones: ["Jueves", "Viernes", "Sábado", "Domingo"],
-      votada: false
-    }]).pipe(delay(2000));
+  async getEncuestas(): Promise<Encuesta[]> {
+    const encuestas: Encuesta[] = [];
+    const totalEncuestas = await this.web3.llamar("getTotalEncuestas");
+    const cuenta = await this.web3.getCuenta();
+    const votante = await this.web3.llamar("getVotante", cuenta);
+    const votanteNormalizado = this.normalizarVotante(votante);
+
+    for(let i = 0; i < totalEncuestas; i++){
+      const encuesta = await this.web3.llamar("getEncuesta", i);
+      const encuestaNormalizada = this.normalizarEncuesta(encuesta, votanteNormalizado);
+      encuestas.push(encuestaNormalizada);
+    }
+
+    return encuestas;
+  }
+
+  private normalizarVotante(votante) {
+    return{
+      id: votante[0],
+      votadas: votante[1].map(voto => parseInt(voto))
+    }
+  }
+
+  private normalizarEncuesta(encuesta, votante): Encuesta {
+    return{
+      id: parseInt(encuesta[0]),
+      pregunta: encuesta[1],
+      resultados: encuesta[2].map(voto => parseInt(voto)),
+      opciones: encuesta[3],
+      votada: votante.votadas.length && votante.votadas.find(votada => votada == encuesta[0]) != undefined
+    }
   }
 
   votar(encuesta: EncuestaVotar) {
@@ -34,5 +50,9 @@ export class EncuestaService {
 
   crearEncuesta(encuesta: EncuestaForm) {
     this.web3.ejecutarTransaccion('crearEncuesta', encuesta.pregunta, encuesta.opciones);
+  }
+
+  paraEventos(nombre: string){
+    return this.web3.paraEventos(nombre);
   }
 }
